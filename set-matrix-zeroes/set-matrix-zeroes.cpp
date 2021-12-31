@@ -1,7 +1,7 @@
 class Solution {
 public:
     void setZeroes(vector<vector<int>>& a) {
-        int m=a.size();
+         int m=a.size();
         int n=a[0].size();
         int first=1;
        for(int i=0;i<m;i++)
