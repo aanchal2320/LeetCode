@@ -16,12 +16,7 @@ public:
 
 class Solution {
 public:
-    // Node(int value)
-    // {
-    //     val=value;
-    //     next=NULL;
-    //     random=NULL;
-    // }
+    
     Node* copyRandomList(Node* head) {
         
         Node* temp=head;
