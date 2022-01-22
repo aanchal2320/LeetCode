@@ -22,15 +22,14 @@ class Solution{
             if(arr[i]<=dep[j])
             {
                 platforms++;
-                res=max(res,platforms);
                 i++;
             }
             else
             {
                 platforms--;
-                res=max(res,platforms);
                 j++;
             }
+            res=max(res,platforms);
         }
         return res;
     }
