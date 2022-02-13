@@ -1,49 +1,59 @@
 class Solution {
 public:
     int minimumOperations(vector<int>& nums) {
-         int n = nums.size();
-        unordered_map<int,int> even,odd;
-        for(int i=0;i<n;i++)
+         int n=nums.size();
+        map<int,int>ev;
+        map<int,int>od;
+        int cd=0,ce=0;
+        for(int i=0;i<nums.size();i++)
         {
             if(i%2==0)
             {
-                even[nums[i]]++;
+                ev[nums[i]]++;
+                ce++;
             }
             else
             {
-                odd[nums[i]]++;
+                cd++;
+                od[nums[i]]++;
             }
         }
-        int evenf = 0,maxele=0, evenf2=0, maxele2=0;
-        for(auto val:even){
-            if(evenf < val.second){
-                evenf = val.second;
-                maxele = val.first;
+        int count1 =0,fv=0,count2 =0;
+        int res=INT_MAX,ans=INT_MAX;
+        for(auto i:ev)
+        {
+            if(i.second>count1)
+            {
+                count1=i.second;
+                fv=i.first;
             }
         }
-         for(auto val:even){
-            if(evenf2 < val.second and val.first!=maxele){
-                evenf2 = val.second;
-                maxele2 = val.first;
+        for(auto i:od)
+        {
+            if(i.first!=fv&&i.second>count2)
+            {
+                count2=i.second;
             }
         }
-        int oddf = 0,smaxele=0, oddf2=0, smaxele2=0;
-        for(auto val:odd){
-            if(oddf < val.second){
-                oddf = val.second;
-                smaxele = val.first;
+        res=(ce-count1)+(cd-count2);
+        count1=0,count2=0,fv=0;
+        for(auto i:od)
+        {
+            if(i.second>count1)
+            {
+                count1=i.second;
+                fv=i.first;
             }
         }
-         for(auto val:odd){
-            if(oddf2 < val.second and val.first!=smaxele){
-                oddf2 = val.second;
-                smaxele2 = val.first;
+        for(auto i:ev)
+        {
+            if(i.first!=fv&&i.second>count2)
+            {
+                count2=i.second;
             }
         }
-       
-        if(maxele!=smaxele){
-            return (n-evenf-oddf);
-        }
-        return min({ n-evenf-oddf2 , n-oddf-evenf2});
+        ans=(ce-count1)+(cd-count2);
+        return min(ans,res);
+        
     }
 };
