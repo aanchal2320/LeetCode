@@ -1,31 +1,47 @@
 class Solution {
 public:
-   bool helper(vector<int>& nums,int target,int idx,vector<vector<int>>& dp)
+    bool issubset(int arr[], int sum , int n )
     {
-        if(target == 0)
-            return dp[idx][target] = true;
-        else if(idx == nums.size())
-            return dp[idx][target] = false;
-        if(dp[idx][target] != -1)
-            return dp[idx][target];
-        if(nums[idx] <= target)
-            return dp[idx][target] = (helper(nums,target-nums[idx],idx+1,dp)) ||                                                                                              (helper(nums,target,idx+1,dp));
-        return dp[idx][target] = helper(nums,target,idx+1,dp);
-    }
-
-    bool canPartition(vector<int>& nums) {
-        if(nums.size() < 2)
-            return false;
-        int sum = 0;
-        for(int i=0;i<nums.size();i++)
+       bool  t[n+1][sum+1];
+     
+        for(int i = 0;i<n+1;i++)
         {
-            sum += nums[i];
+            for(int j = 0; j<sum+1;j++)
+            {
+                if(i==0)
+                    t[i][j] = false;
+                if(j==0)
+                    t[i][j]=true; 
+                    
+            }
         }
-        if(sum%2 != 0)
-            return false;
-        // vector<vector<int>> temp(2);
-        // vector<int> subsetSum(2,0);
-        vector<vector<int>> dp(nums.size()+1,vector<int> (sum/2+1,-1));
-        return helper(nums,sum/2,0,dp);
+       
+        
+        for(int i = 1; i<n+1;i++)
+        {
+            for(int j = 1; j<sum+1;j++)
+            {
+                if(arr[i-1]<=j)
+                    t[i][j] = t[i-1][j-arr[i-1]]||t[i-1][j];
+                else
+                    t[i][j]= t[i-1][j];
+            }
+        }
+        return t[n][sum];
+    }
+    bool canPartition(vector<int>& nums) {
+        int n = nums.size();
+        int arr[n] ; 
+        int sum =0;
+        for(int i = 0 ;i<n;i++)
+          {  arr[i] = nums[i];
+          sum+=arr[i];
+          }
+       
+       if(sum&1)
+           return false;
+        else
+            return issubset(arr, sum/2, n);
+        
     }
 };
