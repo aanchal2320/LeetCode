@@ -10,33 +10,34 @@ class Solution
 {
     public:
     //Function to find total number of unique paths.
-    int findpath(int i,int j,int m,int n,vector<vector<int>>&memo)
-    {
-        if((i==m) && (j==n))
-        {
-            return 1;
-        }
-        if((i>m) || (j>n))
-        {
-            return 0;
-        }
-        if(memo[i][j]!=-1)
-        {
-            return memo[i][j];
-        }
-        else
-        {
-          return memo[i][j]=findpath(i+1,j,m,n,memo)+findpath(i,j+1,m,n,memo);
-        }
-    }
     int NumberOfPath(int a, int b)
     {
-       vector<vector<int>>memo(a+1,vector<int>(b+1,-1));
-       if(a==1 && b==1)
-       {
-           return 1;
-       }
-      return findpath(0,0,a-1,b-1,memo);  
+        int dp[a][b];
+        for(int i=0;i<a;i++)
+        {
+            for(int j=0;j<b;j++)
+            {
+                if(i==0 && j==0)
+                {
+                 dp[i][j]=1;    
+                }
+                else
+                {
+                 int up=0;
+                 int left=0;
+                 if(i>0)
+                 {
+                     up=dp[i-1][j];
+                 }
+                 if(j>0)
+                 {
+                     left=dp[i][j-1];
+                 }
+                 dp[i][j]=up+left;
+                }
+            }
+        }
+        return dp[a-1][b-1];
     }
 };
 
