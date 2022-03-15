@@ -10,7 +10,7 @@ public:
         {
             if(x[0]<=temp[1])
             {
-              temp[1]=max(x[1],temp[1]); 
+               temp[1]=max(temp[1],x[1]);
             }
             else
             {
