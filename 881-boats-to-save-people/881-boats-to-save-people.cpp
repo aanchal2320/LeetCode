@@ -7,7 +7,7 @@ public:
         int res=0;
         while(left<=right)
         {
-            if(people[left]+people[right]>limit||right==left)
+            if(people[left]+people[right]>limit)
             {
                 res++;
                 right--;
