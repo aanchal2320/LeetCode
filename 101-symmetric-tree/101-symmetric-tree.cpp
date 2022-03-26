@@ -11,18 +11,20 @@
  */
 class Solution {
 public:
+    bool find(TreeNode* r1,TreeNode* r2)
+    {
+        if(r1==NULL || r2==NULL)
+            return r1==r2;
+        if(r1->val!=r2->val)
+            return false;
+        return (find(r1->left,r2->right) && find(r1->right,r2->left));
+    }
     bool isSymmetric(TreeNode* root) {
         if(root==NULL)
             return true;
-        return (check(root->left,root->right)==true);   
-    }
-    bool check(TreeNode* left,TreeNode* right)
-    {
-        if(left==NULL || right==NULL)
-        {
-            return left==right;
-        }
-        return (left->val==right->val && check(left->left,right->right)&& 
-                check(left->right,right->left));
+        else if(find(root->left,root->right))
+            return true;
+        else
+            return false;
     }
 };
