@@ -1,5 +1,6 @@
 class Solution {
 public:
+    //striver
     void nextPermutation(vector<int>& nums) {
         int n=nums.size();
         if(nums.size()<=1)
