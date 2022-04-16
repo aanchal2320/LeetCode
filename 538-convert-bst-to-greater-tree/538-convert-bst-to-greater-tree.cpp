@@ -12,23 +12,15 @@
 class Solution {
 public:
     int sum=0;
-    void convert(TreeNode* root)
-    {
-        if(root->right!=NULL)
-        {
-            convert(root->right);
-        }
-        sum+=root->val;
-        root->val=sum;
-        if(root->left!=NULL)
-        {
-            convert(root->left);
-        }
-    }
     TreeNode* convertBST(TreeNode* root) {
         if(root==NULL)
+        {
             return NULL;
-        convert(root);
+        }
+        convertBST(root->right);
+        sum+=root->val;
+        root->val=sum;
+        convertBST(root->left);
         return root;
     }
 };
