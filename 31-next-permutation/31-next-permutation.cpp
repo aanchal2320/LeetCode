@@ -1,28 +1,36 @@
 class Solution {
 public:
-    //striver
     void nextPermutation(vector<int>& nums) {
         int n=nums.size();
-        if(nums.size()<=1)
-            return;
-        int i=nums.size()-2;
-        int j=nums.size()-1;
-        while(i>=0 && nums[i]>=nums[i+1])
+        int ind1=-1,ind2=-1;
+        if(n<=1)
         {
-            i--;
+            return;
         }
-        if(i<0)
+        for(int i=n-2;i>=0;i--)
+        {
+            if(nums[i]<nums[i+1])
+            {
+                ind1=i;
+                break;
+            }
+        }
+        if(ind1==-1)
         {
             reverse(nums.begin(),nums.end());
         }
         else
         {
-            while(nums[j]<=nums[i])
-            {
-                j--;
-            }
-        swap(nums[i],nums[j]);
-        reverse(nums.begin()+i+1,nums.end());
+            for(int i=n-1;i>=0;i--)
+             {
+                 if(nums[i]>nums[ind1])
+                    {
+                        ind2=i;
+                        break;
+                    }
+             }
+        swap(nums[ind1],nums[ind2]);
+        reverse(nums.begin()+ind1+1,nums.end());
         }
     }
 };
