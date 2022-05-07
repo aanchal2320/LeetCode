@@ -10,27 +10,28 @@ using namespace std;
 
 class Solution{
     public:
-    int maxLen(vector<int>&a, int n)
+    int maxLen(vector<int>&A, int n)
     {   
-        unordered_map<int,int>m;
-        int prefix=0,res=0;
+        unordered_map<int,int>mp;
+        int sum=0;
+        int maxi=0;
         for(int i=0;i<n;i++)
         {
-            prefix+=a[i];
-            if(prefix==0)
-            {
-                res=i+1;
-            }
-            if(m.find(prefix)==m.end())
-            {
-                m.insert({prefix,i});
-            }
-            if(m.find(prefix-0)!=m.end())
-            {
-                res=max(res,i-m[prefix-0]);
-            }
+           sum+=A[i];
+        if(sum==0)
+        {
+            maxi=i+1;
         }
-        return res;
+        else if(mp.find(sum)!=mp.end())
+        {
+            maxi=max(maxi,i-mp[sum]);
+        }
+        else
+        {
+            mp[sum]=i;
+        }
+    }
+    return maxi;
     }
 };
 
