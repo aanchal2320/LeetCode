@@ -1,6 +1,6 @@
 class Solution {
 public:
-   bool dfs(int i, vector<int>&cur , vector<int>&visited)
+    bool dfs(int i, vector<int>&cur , vector<int>&visited)
     {
         visited[i]=1;
         cur[i]=1;
@@ -41,5 +41,4 @@ public:
         }
         return true;
     }
-    
 };
