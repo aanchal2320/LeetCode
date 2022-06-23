@@ -13,22 +13,8 @@ public:
        ListNode* d2=h2;
        while(d1!=d2)
        {
-           if(d1==NULL)
-           {
-               d1=h2;
-           }
-           else
-           {
-               d1=d1->next;
-           }
-           if(d2==NULL)
-           {
-               d2=h1;
-           }
-           else
-           {
-               d2=d2->next;
-           }
+           d1=d1==NULL?h2:d1->next;
+           d2=d2==NULL?h1:d2->next;
        }
         return d2;
     }
