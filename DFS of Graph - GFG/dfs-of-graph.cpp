@@ -4,30 +4,30 @@ using namespace std;
 
  // } Driver Code Ends
 class Solution {
-    void finddfs(int node,vector<int>&vis,vector<int>adj[],vector<int> &storedfs)
+  public:
+    void dfs(int node,vector<int>adj[],vector<int>&ans,vector<int>&vis)
     {
-        storedfs.push_back(node);
+        ans.push_back(node);
         vis[node]=1;
-        for(auto x: adj[node])
+        for(auto it:adj[node])
         {
-            if(!vis[x])
+            if(!vis[it])
             {
-                finddfs(x,vis,adj,storedfs);
+                dfs(it,adj,ans,vis);
             }
         }
     }
-    public:
     vector<int> dfsOfGraph(int V, vector<int> adj[]) {
-        vector<int>storedfs;
-        vector<int>vis(V+1,0);
-        // for(int i=1;i<=V;i++)
-        // {
-            if(!vis[0])
-            {
-                finddfs(0,vis,adj,storedfs);
-            }
-        // }
-        return storedfs;
+       vector<int>ans;
+       vector<int>vis(V+1,0);
+       for(int i=0;i<V;i++)
+       {
+           if(!vis[i])
+           {
+               dfs(i,adj,ans,vis);
+           }
+       }
+       return ans;
     }
 };
 
