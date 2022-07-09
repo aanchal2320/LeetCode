@@ -4,7 +4,7 @@
                 <p></p><div class="entry-content">
 <p><span style="font-size:18px">Given a&nbsp;list <strong>arr</strong>&nbsp;of <strong>N</strong> integers, print sums of all subsets in it.</span></p>
 
-<p><span style="font-size:18px"><strong>Note:</strong> Return all the element is increasing order.</span></p>
+<p>&nbsp;</p>
 
 <p><strong><span style="font-size:18px">Example 1:</span></strong></p>
 
