@@ -6,21 +6,22 @@ using namespace std;
 class Solution
 {
 public:
-    void findsum(int index,int sum,vector<int>&arr,vector<int>&ans,int n)
+void func(int ind,int sum,vector<int>&ans,vector<int>arr,int n)
+{
+    if(ind==n)
     {
-        if(index==n)
-        {
-            ans.push_back(sum);
-            return;
-        }
-        findsum(index+1,sum+arr[index],arr,ans,n);
-        findsum(index+1,sum,arr,ans,n);
+        ans.push_back(sum);
+        return;
     }
+    // sum=sum+arr[ind];
+    func(ind+1,sum+arr[ind],ans,arr,n);
+    // sum=sum-arr[ind];
+    func(ind+1,sum,ans,arr,n);
+}
     vector<int> subsetSums(vector<int> arr, int n)
     {
         vector<int>ans;
-        findsum(0,0,arr,ans,n);
-        sort(ans.begin(),ans.end());
+        func(0,0,ans,arr,n);
         return ans;
     }
 };
