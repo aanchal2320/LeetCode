@@ -1,39 +1,37 @@
 class Solution {
 public:
-    void func(int index,string s,vector<string>&p,vector<vector<string>>&res)
+    void func(string s,int ind,vector<vector<string>>&ans,vector<string>&ds)
     {
-        if(s.size()==index)
+        if(ind==s.size())
         {
-          res.push_back(p);
-          return;
+            ans.push_back(ds);
+            return;
         }
-        for(int i=index;i<s.size();i++)
+        for(int i=ind;i<s.size();i++)
         {
-          if(ispalindrome(s,index,i))
-          {
-              p.push_back(s.substr(index,i-index+1));
-              func(i+1,s,p,res);
-              p.pop_back();
-          }
+            if(palin(ind,i,s))
+            {
+                ds.push_back(s.substr(ind,i-ind+1));
+                func(s,i+1,ans,ds);
+                ds.pop_back();
+            }
         }
     }
-    bool ispalindrome(string s,int start,int end)
+    bool palin(int start,int end,string s)
     {
         while(start<=end)
         {
-            if(s[start]!=s[end])
+            if(s[start++]!=s[end--])
             {
-               return false;
+                return false;
             }
-            start++;
-            end--;
         }
         return true;
     }
     vector<vector<string>> partition(string s) {
-        vector<vector<string>>res;
-        vector<string>p;
-        func(0,s,p,res);
-        return res;
+        vector<vector<string>>ans;
+        vector<string>ds;
+        func(s,0,ans,ds);
+        return ans;
     }
 };
