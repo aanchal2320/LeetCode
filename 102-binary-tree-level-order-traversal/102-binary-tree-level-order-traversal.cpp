@@ -12,7 +12,7 @@
 class Solution {
 public:
     vector<vector<int>> levelOrder(TreeNode* root) {
-        vector<vector<int>>res;
+         vector<vector<int>>res;
         if(root==NULL)
         {
             return res;
