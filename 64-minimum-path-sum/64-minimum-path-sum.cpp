@@ -10,22 +10,29 @@ public:
             {
                 if(i==0 && j==0)
                 {
-                    dp[i][j]=grid[i][j];
+                    dp[i][j]=grid[0][0];
                 }
                 else
                 {
-                    if(i==0)
+                    int up=grid[i][j];
+                    int left=grid[i][j];
+                    if(i>0)
                     {
-                        dp[i][j]=grid[i][j]+dp[i][j-1];
-                    }
-                    else if(j==0)
-                    {
-                        dp[i][j]=grid[i][j]+dp[i-1][j];
+                        up+=dp[i-1][j];
                     }
                     else
                     {
-                        dp[i][j]=grid[i][j]+min(dp[i-1][j],dp[i][j-1]);
+                        up+=1e9;
                     }
+                    if(j>0)
+                    {
+                        left+=dp[i][j-1];
+                    }
+                    else
+                    {
+                        left+=1e9;
+                    }
+                    dp[i][j]=min(up,left);
                 }
             }
         }
