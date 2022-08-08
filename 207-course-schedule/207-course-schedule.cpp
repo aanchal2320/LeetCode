@@ -1,43 +1,41 @@
 class Solution {
 public:
-    bool dfs(int i, vector<int>&cur , vector<int>&visited)
+    bool iscycle(int curr,vector<int>&vis,vector<vector<int>>&adj)
     {
-        visited[i]=1;
-        cur[i]=1;
-        for(auto x:edge[i])
+        if(vis[curr]==2)
         {
-           if(!visited[x])
-           {
-               if (  dfs(x,cur,visited)==false )return false;
-           }
-           else if(cur[x])return false; 
-            
-            
+            return true;
         }
-        cur[i]=0;
-        return true;
-    }
-public:
-      vector<vector<int>>edge;
-      bool canFinish(int n, vector<vector<int>>& prerequisites) {
-        
-          
-        edge.resize(n+1);
-        for(auto x:prerequisites)
+        vis[curr]=2;
+        for(int i=0;i<adj[curr].size();i++)
         {
-            edge[x[0]].push_back(x[1]);
-        }
-    
-         vector<int>visited(n+1,0);
-         vector<int>cur(n+1,0);
-          for(int i=0;i<n;i++){
-           
-            if(visited[i]==0)
+            if(vis[adj[curr][i]]!=1)
             {
-                 if(!dfs(i,cur,visited)) return false ;
+                if(iscycle(adj[curr][i],vis,adj))
+                {
+                    return true;
+                }
             }
-           
-               
+        }
+        vis[curr]=1;
+        return false;
+    }
+    bool canFinish(int n, vector<vector<int>>& prerequisites) {
+        vector<int>vis(n,0);
+        vector<vector<int>>adj(n);
+        for(int i=0;i<prerequisites.size();i++)
+        {
+            adj[prerequisites[i][0]].push_back(prerequisites[i][1]);
+        }
+        for(int i=0;i<n;i++)
+        {
+            if(vis[i]==0)
+            {
+                if(iscycle(i,vis,adj))
+                {
+                    return false;
+                }
+            }
         }
         return true;
     }
