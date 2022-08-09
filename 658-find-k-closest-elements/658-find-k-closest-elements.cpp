@@ -1,16 +1,25 @@
 class Solution {
 public:
-    //two pointer
     vector<int> findClosestElements(vector<int>& arr, int k, int x) {
-       int left = 0, right = arr.size()-1;
-        
-        while (right - left + 1 > k) {
-            
-            if (arr[right] - x < x - arr[left]) left++;
-            else right--;
+        // vector<int>ans;
+        int low=0,high=arr.size()-k;
+        while(low<high)
+        {
+             int mid=low+(high-low)/2;
+            if(x-arr[mid]>arr[mid+k]-x)
+            {
+               low=mid+1;
+            }
+            else
+            {
+                high=mid;
+            }
         }
-        
-        return vector<int>(arr.begin() + left, arr.begin() + right + 1);
-        
+        vector<int>ans;
+        for(int i=0;i<k;i++)
+        {
+            ans.push_back(arr[low+i]);
+        }
+        return ans;
     }
 };
