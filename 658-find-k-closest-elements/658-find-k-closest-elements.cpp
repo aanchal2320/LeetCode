@@ -1,22 +1,16 @@
 class Solution {
 public:
+    //two pointer
     vector<int> findClosestElements(vector<int>& arr, int k, int x) {
-         priority_queue<pair<int, int> > pq;
-        for(auto ele:arr)
-        {
-            pq.push(make_pair(abs(x-ele),ele));
-            if(pq.size()>k)
-            {
-                pq.pop();
-            }
+       int left = 0, right = arr.size()-1;
+        
+        while (right - left + 1 > k) {
+            
+            if (arr[right] - x < x - arr[left]) left++;
+            else right--;
         }
-        vector<int>ans;
-        while(!pq.empty())
-        {
-            ans.push_back(pq.top().second);
-            pq.pop();
-        }
-        sort(ans.begin(),ans.end());
-        return ans;
+        
+        return vector<int>(arr.begin() + left, arr.begin() + right + 1);
+        
     }
 };
