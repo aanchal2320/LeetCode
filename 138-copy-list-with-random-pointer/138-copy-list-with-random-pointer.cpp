@@ -16,40 +16,37 @@ public:
 
 class Solution {
 public:
-    
     Node* copyRandomList(Node* head) {
-        
-        Node* temp=head;
-        Node* curr=head;
-        while(temp!=NULL)
+       Node* curr=head,*next;
+        while(curr!=NULL)
         {
-            curr=temp->next;
-            Node* copy=new Node(temp->val);
-            temp->next=copy;
-            copy->next=curr;
-            temp=curr;
+            next=curr->next;
+            Node* copy=new Node(curr->val);
+            curr->next=copy;
+            copy->next=next;
+            curr=next;
         }
-       temp=head;
-        while(temp!=NULL)
+        curr=head;
+        while(curr!=NULL)
         {
-            if(temp->random!=NULL)
+            if(curr->random!=NULL)
             {
-            temp->next->random=temp->random->next;
+                curr->next->random=curr->random->next;
             }
-             temp=temp->next->next;
+            curr=curr->next->next;
         }
-       temp=head;
-       Node* newnode=new Node(0);
-       Node* copy=newnode;
-       while(temp!=NULL)
-       {
-           curr=temp->next->next;
-           copy->next=temp->next;
-           temp->next=curr;
-           copy=copy->next;
-           temp=curr;
-       }
-        return newnode->next;
-        
+        curr=head;
+        Node* dummy=new Node(0);
+        Node* copy,*copytail=dummy;
+        while(curr!=NULL)
+        {
+            next=curr->next->next;
+            copy=curr->next;
+            copytail->next=copy;
+            copytail=copy;
+            curr->next=next;
+            curr=next;
+        }
+        return dummy->next;
     }
 };
