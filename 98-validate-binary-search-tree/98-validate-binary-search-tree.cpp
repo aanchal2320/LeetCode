@@ -11,23 +11,19 @@
  */
 class Solution {
 public:
-    void check(TreeNode* root,vector<int>&res)
+    bool solve(TreeNode* root,long minval,long maxval)
     {
-        if(root==NULL)return;
-        check(root->left,res);
-        res.push_back(root->val);
-        check(root->right,res);
+        if(root==NULL)
+        {
+            return true;
+        }
+        if(root->val<=minval || root->val>=maxval)
+        {
+            return false;
+        }
+      return (solve(root->left,minval,root->val) && solve(root->right,root->val,maxval));
     }
     bool isValidBST(TreeNode* root) {
-        vector<int>res;
-        check(root,res);
-        for(int i=1;i<res.size();i++)
-        {
-            if(res[i]<=res[i-1])
-            {
-                return false;
-            }
-        }
-        return true;
+        return solve(root,LONG_MIN,LONG_MAX);
     }
 };
