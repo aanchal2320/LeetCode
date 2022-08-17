@@ -1,24 +1,25 @@
 class Solution {
 public:
-    bool bipar(int node,vector<vector<int>>&graph,vector<int>&color)
+    bool isbi(int node,vector<vector<int>>&graph,vector<int>&color)
     {
-        if(color[node]==-1)
+        queue<int>q;
+        q.push(node);
+        color[node]=1;
+        while(!q.empty())
         {
-            color[node]=1;
-        }
-        for(auto it:graph[node])
-        {
-            if(color[it]==-1)
+            int curr=q.front();
+            q.pop();
+            for(auto it:graph[curr])
             {
-                color[it]=1-color[node];
-                if(!bipar(it,graph,color))
+                if(color[it]==-1)
+                {
+                    color[it]=1-color[curr];
+                    q.push(it);
+                }
+                else if(color[it]==color[curr])
                 {
                     return false;
                 }
-            }
-            else if(color[it]==color[node])
-            {
-                return false;
             }
         }
         return true;
@@ -30,8 +31,10 @@ public:
         {
             if(color[i]==-1)
             {
-                if(!bipar(i,graph,color))
+                if(!isbi(i,graph,color))
+                {
                     return false;
+                }
             }
         }
         return true;
