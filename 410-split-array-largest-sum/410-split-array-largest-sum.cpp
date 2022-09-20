@@ -1,22 +1,42 @@
 class Solution {
 public:
-    int splitArray(vector<int>& nums, int m) {
-         int l=0,r=0,n=nums.size();
-        for(int i=0;i<n;++i) l=max(l,nums[i]), r+=nums[i];
-        
-        int mid=0,ans=0;
-        while(l<=r){
-            mid=(l+r)/2;
-            int count=0,tempsum=0;
-            for(int i=0;i<n;++i){
-                if(tempsum+nums[i]<=mid) tempsum+=nums[i];
-                else count++,tempsum=nums[i];
+    int func(vector<int>&nums,int limit)
+    {
+        int sum=0;
+        int count=1;
+        for(int i=0;i<nums.size();i++)
+        {
+            sum+=nums[i];
+            if(sum>limit)
+            {
+                sum=nums[i];
+                count++;
             }
-            count++; 
-            
-            if(count<=m) r=mid-1, ans=mid;
-            else l=mid+1;
-        }  
+        }
+        return count;
+    }
+    int splitArray(vector<int>& nums, int m) {
+        int low=INT_MIN,high=0;
+        for(int i=0;i<nums.size();i++)
+        {
+            low=max(low,nums[i]);
+            high+=nums[i];
+        }
+        int ans=low;
+        while(low<=high)
+        {
+            int mid=low+(high-low)/2;
+            int n=func(nums,mid);
+            if(n>m)
+            {
+                low=mid+1;
+            }
+            else
+            {
+                ans=mid;
+                high=mid-1;
+            }
+        }
         return ans;
     }
 };
