@@ -1,7 +1,7 @@
 class Solution {
 public:
     int numDecodings(string s) {
-     if(s[0]=='0'||s.size()==0)
+        if(s[0]=='0'||s.size()==0)
          return 0;
      if(s.size()==1)
          return 1;
