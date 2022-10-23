@@ -1,47 +1,59 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 #include <bits/stdc++.h>
 using namespace std;
 
- // } Driver Code Ends
+// } Driver Code Ends
 class Solution {
   public:
     // Function to find the number of islands.
-    void dfs(int i,int j,vector<vector<char>>&grid,int n,int m)
+     void bfs(int i,int j,vector<vector<int>>&vis,vector<vector<char>>&grid)
     {
-        if(i<0 || j<0 || i>=m || j>=n || grid[i][j]=='0')
+        vis[i][j]=1;
+        int n=grid.size();
+        int m=grid[0].size();
+        queue<pair<int,int>>q;
+        q.push({i,j});
+        while(!q.empty())
         {
-            return;
+            int row=q.front().first;
+            int col=q.front().second;
+            q.pop();
+        for(int delrow=-1;delrow<=1;delrow++)
+        {
+            for(int delcol=-1;delcol<=1;delcol++)
+            {
+                int nrow=row+delrow;
+                int ncol=col+delcol;
+                if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && grid[nrow][ncol]=='1' && !vis[nrow][ncol])
+                {
+                    vis[nrow][ncol]=1;
+                    q.push({nrow,ncol});
+                }
+            }
         }
-        grid[i][j]='0';
-        dfs(i+1,j,grid,n,m);
-        dfs(i-1,j,grid,n,m);
-        dfs(i,j+1,grid,n,m);
-        dfs(i,j-1,grid,n,m);
-        dfs(i-1,j+1,grid,n,m);
-        dfs(i-1,j-1,grid,n,m);
-        dfs(i+1,j-1,grid,n,m);
-        dfs(i+1,j+1,grid,n,m);
+    }
     }
     int numIslands(vector<vector<char>>& grid) {
-       int m=grid.size();
-       int n=grid[0].size();
-       int count=0;
-       for(int i=0;i<m;i++)
-       {
-           for(int j=0;j<n;j++)
-           {
-               if(grid[i][j]=='1')
-               {
-                   dfs(i,j,grid,n,m);
-                   count++;
-               }
-           }
-       }
-       return count;
+         int count=0;
+        int n=grid.size();
+        int m=grid[0].size();
+        vector<vector<int>>vis(n,vector<int>(m,0));
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                if(!vis[i][j] && grid[i][j]=='1')
+                {
+                    count++;
+                    bfs(i,j,vis,grid);
+                }
+            }
+        }
+        return count;
     }
 };
 
-// { Driver Code Starts.
+//{ Driver Code Starts.
 int main() {
     int tc;
     cin >> tc;
@@ -59,4 +71,5 @@ int main() {
         cout << ans << '\n';
     }
     return 0;
-}  // } Driver Code Ends
+}
+// } Driver Code Ends
