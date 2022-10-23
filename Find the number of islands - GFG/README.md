@@ -1,7 +1,6 @@
 # Find the number of islands
-## Medium 
-<div class="problem-statement">
-                <p></p><p><span style="font-size:18px">Given a grid of size n*m (n is the number of rows and m is the number of columns in the grid) consisting of '0's (Water)&nbsp;and '1's(Land). Find the number of islands.</span><br>
+## Medium
+<div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Given a grid of size n*m (n is the number of rows and m is the number of columns in the grid) consisting of '0's (Water)&nbsp;and '1's(Land). Find the number of islands.</span><br>
 <br>
 <strong><span style="font-size:18px">Note: </span></strong><span style="font-size:18px">An&nbsp;island&nbsp;is surrounded by water and is formed by connecting adjacent lands horizontally or vertically or diagonally i.e., in all 8 directions.</span></p>
 
@@ -42,5 +41,4 @@ You don't need to read or print anything. Your task is to complete the function 
 
 <p><span style="font-size:18px"><strong>Constraints:</strong><br>
 1 ≤ n, m ≤ 500</span></p>
- <p></p>
-            </div>
+</div>
