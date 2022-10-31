@@ -1,8 +1,8 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 #include<bits/stdc++.h>
 using namespace std;
 
- // } Driver Code Ends
+// } Driver Code Ends
 class Solution
 {
 	public:
@@ -10,37 +10,38 @@ class Solution
     //from the source vertex S.
     vector <int> dijkstra(int V, vector<vector<int>> adj[], int S)
     {
-      vector<int>key(V,INT_MAX);
-      vector<int>vis(V,0);
-      key[S]=0;
-      for(int j=0;j<V;j++)
+       priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+       vector<int>dist(V);
+      for(int i=0;i<V;i++)
       {
-          int mini=INT_MAX;
-          for(int i=0;i<key.size();i++)
-          {
-              if(!vis[i])
-              {
-                  if(mini==INT_MAX || key[mini]>key[i])
-                  {
-                      mini=i;
-                   } 
-              }
-          }
-          vis[mini]=1;
-          for(auto it: adj[mini])
-          {
-              if(!vis[it[0]] && it[1]+key[mini]<key[it[0]])
-              {
-                  key[it[0]]=it[1]+key[mini];
-              }
-          }
+          dist[i]=1e9;
       }
-      return key;
+       dist[S]=0;
+       pq.push({0,S});
+       
+       while(!pq.empty())
+       {
+           int d=pq.top().first;
+           int e=pq.top().second;
+           pq.pop();
+           for(auto it:adj[e])
+           {
+               int node=it[0];
+               int edgedis=it[1];
+               
+               if(d+edgedis< dist[node])
+               {
+                   dist[node]=edgedis+d;
+                   pq.push({dist[node],node});
+               }
+           }
+       }
+       return dist;
     }
 };
 
 
-// { Driver Code Starts.
+//{ Driver Code Starts.
 
 
 int main()
@@ -77,4 +78,5 @@ int main()
     return 0;
 }
 
-  // } Driver Code Ends
+
+// } Driver Code Ends
