@@ -1,76 +1,73 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 #include<bits/stdc++.h>
 using namespace std;
 
- // } Driver Code Ends
-
+// } Driver Code Ends
 
 class Solution
 {
 	public:
 	//Function to find number of strongly connected components in the graph.
-	void dfs_of_rev(int ele,vector<int>rev[],vector<int>&vis2)
+	void dfs(int node,vector<vector<int>>& adj,vector<int>&vis,stack<int>&st)
 	{
-	    vis2[ele]=1;
-	    for(auto it:rev[ele])
-	    {
-	        if(!vis2[it])
-	        {
-	            dfs_of_rev(it,rev,vis2);
-	            
-	        }
-	    }
-	}
-	void dfs(int node,vector<int>adj[],stack<int>&s,vector<int>&vis)
-	{
-	    
 	    vis[node]=1;
 	    for(auto it:adj[node])
 	    {
-	    if(!vis[it])
-	    {
-	        dfs(it,adj,s,vis);
+	        if(!vis[it])
+	        {
+	            dfs(it,adj,vis,st);
+	        }
 	    }
-	    
-	    }
-	    s.push(node);
+	    st.push(node);
 	}
-    int kosaraju(int V, vector<int> adj[])
+	void dfs3(int node, vector<int>adjR[],vector<int>&vis)
+	{
+	    vis[node]=1;
+	    for(auto it:adjR[node])
+	    {
+	        if(!vis[it])
+	        {
+    	        dfs3(it,adjR,vis);
+	        }
+	    }
+	}
+	int kosaraju(int V, vector<vector<int>>& adj)
     {
-        stack<int>s;
+        stack<int>st;
         vector<int>vis(V,0);
         for(int i=0;i<V;i++)
         {
             if(!vis[i])
             {
-                dfs(i,adj,s,vis);
+                dfs(i,adj,vis,st);
             }
         }
-        vector<int>rev[V];
+        //reverse the graph
+        vector<int>adjR[V];
         for(int i=0;i<V;i++)
         {
+            vis[i]=0;   // re-initalizing visited array since its already altered
             for(auto it:adj[i])
             {
-                rev[it].push_back(i);
+                adjR[it].push_back(i);
             }
         }
-        int count=0;
-        vector<int>vis2(V,0);
-        while(!s.empty())
+        int ssc=0;
+        while(!st.empty())
         {
-            int ele=s.top();
-            s.pop();
-            if(!vis2[ele])
+            int node=st.top();
+            st.pop();
+            if(!vis[node])
             {
-                dfs_of_rev(ele,rev,vis2);
-                count++;
+                ssc++;
+                dfs3(node,adjR,vis);
             }
         }
-      return count;  
+        return ssc;
     }
 };
 
-// { Driver Code Starts.
+//{ Driver Code Starts.
 
 
 int main()
@@ -83,7 +80,7 @@ int main()
     	int V, E;
     	cin >> V >> E;
 
-    	vector<int> adj[V];
+    	vector<vector<int>> adj(V);
 
     	for(int i = 0; i < E; i++)
     	{
@@ -99,4 +96,5 @@ int main()
     return 0;
 }
 
-  // } Driver Code Ends
+
+// } Driver Code Ends
