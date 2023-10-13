@@ -15,7 +15,7 @@ class Solution{
         for(int i=0;i<n;i++)
         {
             sum+=arr[i];
-            ans=max(sum,ans);
+            ans=max(ans,sum);
             if(sum<0)
             {
                 sum=0;
